@@ -28,20 +28,23 @@ const injectContext = PassedComponent => {
 			 * you should do your ajax requests or fetch api requests here. Do not use setState() to save data in the
 			 * store, instead use actions, like this:
 			 **/
-			if(!localStorage.getItem('people'))
-				state.actions.getPeople();
+			const people = JSON.parse(localStorage.getItem('people'))
+			if(people)
+				state.store.people = people	
 			else 
-				state.store.people = localStorage.getItem('people')
-
-			if(!localStorage.getItem('planets'))
+			state.actions.getPeople();
+		
+			const planets = JSON.parse(localStorage.getItem('planets'))
+			if(planets)
+				state.store.planets = planets	
+			else 
 				state.actions.getPlanets();
-			else
-				state.store.planets = localStorage.getItem('planets')
 
-			if(!localStorage.getItem('starships'))
-				state.actions.getStarships(); 
-			else
-				state.store.starships = localStorage.getItem('starships')
+			const starships = JSON.parse(localStorage.getItem('starships'))
+			if(starships)
+				state.store.starships = starships	
+			else 
+				state.actions.getStarships();
 		}, []);
 
 		// The initial value for the context is not null anymore, but the current state of this component,
